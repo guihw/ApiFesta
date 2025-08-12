@@ -17,13 +17,26 @@ public class Endpoints {
     @Autowired
     private PessoaService pessoaService;
 
+
+
+    @PostMapping
+    public ResponseEntity<PessoaModel> criarPessoa(@RequestBody PessoaDTO pessoaDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaDTO));
+    }
+
     @GetMapping
     public List<PessoaModel> findAll(){
         return pessoaService.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<PessoaModel> criarPessoa(@RequestBody PessoaDTO pessoaDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaDTO));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirPessoa(@PathVariable Long id){
+        pessoaService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PessoaModel> atualizarPessoa(@PathVariable Long id, @RequestBody PessoaDTO atualizarPessoa){
+
     }
 }

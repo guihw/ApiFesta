@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -24,5 +25,16 @@ public class PessoaService {
 
     public List<PessoaModel> findAll(){
         return pessoaRepository.findAll();
+    }
+
+    public void excluir(Long id){
+        pessoaRepository.deleteById(id);
+    }
+
+    public PessoaModel atualizar(Long id, PessoaDTO atualizarPessoa){
+        Optional<PessoaModel> pessoa = pessoaRepository.findById(id).stream().findFirst();
+        if (pessoa.isPresent()){
+            //return pessoaRepository.d;
+        }
     }
 }
