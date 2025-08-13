@@ -37,6 +37,7 @@ public class Endpoints {
 
     @PatchMapping("/{id}")
     public ResponseEntity<PessoaModel> atualizarPessoa(@PathVariable Long id, @RequestBody PessoaDTO atualizarPessoa){
-
+        PessoaModel pessoaAtualizada = pessoaService.atualizar(id, atualizarPessoa);
+        return ResponseEntity.ok(pessoaAtualizada);
     }
 }

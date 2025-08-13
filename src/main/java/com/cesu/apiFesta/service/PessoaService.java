@@ -32,9 +32,16 @@ public class PessoaService {
     }
 
     public PessoaModel atualizar(Long id, PessoaDTO atualizarPessoa){
-        Optional<PessoaModel> pessoa = pessoaRepository.findById(id).stream().findFirst();
-        if (pessoa.isPresent()){
-            //return pessoaRepository.d;
+        Optional<PessoaModel> pessoaOpcional = pessoaRepository.findById(id).stream().findFirst();
+        if (pessoaOpcional.isPresent()){
+            PessoaModel pessoa = pessoaOpcional.get();
+
+            pessoa.setNome(atualizarPessoa.nome());
+            pessoa.setCpf(atualizarPessoa.cpf());
+            pessoa.setIdade(atualizarPessoa.idade());
+            return pessoaRepository.save(pessoa);
+        } else {
+            throw new RuntimeException("Pessoa não encontrada com ID: " + id);
         }
     }
 }
