@@ -1,6 +1,7 @@
 package com.cesu.apiFesta.service;
 
 import com.cesu.apiFesta.dto.PessoaDTO;
+import com.cesu.apiFesta.exceptions.PessoaApiEmptyException;
 import com.cesu.apiFesta.model.PessoaModel;
 import com.cesu.apiFesta.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,12 @@ public class PessoaService {
     }
 
     public List<PessoaModel> findAll(){
-        return pessoaRepository.findAll();
+        List<PessoaModel> pessoas = pessoaRepository.findAll();
+        if (pessoas.isEmpty()){
+            throw new PessoaApiEmptyException();
+        } else {
+            return pessoas;
+        }
     }
 
     public void excluir(Long id){
