@@ -1,5 +1,6 @@
 package com.cesu.apiFesta.controller;
 
+import com.cesu.apiFesta.dto.AuthenticationDTO;
 import com.cesu.apiFesta.dto.PessoaDTO;
 import com.cesu.apiFesta.model.PessoaModel;
 import com.cesu.apiFesta.service.PessoaService;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController()
 @RequestMapping("/api/pessoas")
 public class Endpoints {
     @Autowired
@@ -22,8 +23,8 @@ public class Endpoints {
     }
 
     @PostMapping
-    public ResponseEntity<PessoaModel> criarPessoa(@RequestBody PessoaDTO pessoaDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaDTO));
+    public ResponseEntity<PessoaModel> criarPessoa(@RequestBody PessoaDTO pessoaDTO, @RequestBody AuthenticationDTO authenticationDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaDTO, authenticationDTO));
     }
 
     @DeleteMapping("/{id}")

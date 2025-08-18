@@ -1,5 +1,6 @@
 package com.cesu.apiFesta.service;
 
+import com.cesu.apiFesta.dto.AuthenticationDTO;
 import com.cesu.apiFesta.dto.PessoaDTO;
 import com.cesu.apiFesta.exceptions.PessoaApiEmptyException;
 import com.cesu.apiFesta.model.PessoaModel;
@@ -15,8 +16,8 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public PessoaModel salvar(PessoaDTO pessoaDTO){
-        PessoaModel novaPessoa = new PessoaModel();
+    public PessoaModel salvar(PessoaDTO pessoaDTO, AuthenticationDTO authenticationDTO){
+        PessoaModel novaPessoa = new PessoaModel(authenticationDTO.login(), authenticationDTO.password(), authenticationDTO.role());
         novaPessoa.setNome(pessoaDTO.nome());
         novaPessoa.setIdade(pessoaDTO.idade());
         novaPessoa.setCpf(pessoaDTO.cpf());
